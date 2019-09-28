@@ -1,0 +1,27 @@
+{
+  "name": "digitalvcard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "Mxnxn Inc",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^16.1.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.4",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.16.2",
+    "fs-extra": "^8.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.7.1",
+    "path": "^0.12.7"
+  }
+}

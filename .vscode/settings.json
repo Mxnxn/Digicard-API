@@ -1,0 +1,10 @@
+{
+	"editor.fontFamily": "Fira Code",
+	"editor.fontSize": 15,
+	"workbench.fontAliasing": "default",
+	"editor.fontWeight": "500",
+	"editor.fontLigatures": true,
+	"prettier.disableLanguages": [],
+	"prettier.tabWidth": 4,
+	"prettier.useTabs": true
+}
