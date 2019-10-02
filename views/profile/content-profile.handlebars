@@ -39,8 +39,10 @@
                                     <span style="padding-left:20px "></span>
                                     <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
                                         {{post.contactNumber}}</a>
+                                    {{#if post.contactNumber2}}
                                     / <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
                                         {{post.contactNumber2}}</a>
+                                    {{/if}}
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope" style="color: #999999" aria-hidden="true"></i><span
