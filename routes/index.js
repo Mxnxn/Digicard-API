@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 //     jwt.sign(
 //       { id: data._id },
 //       process.env.SECRET_KEY,
-//       // { expiresIn: 120 } //! for EXPIRATION,
+//   { expiresIn: 120 } //! for EXPIRATION,
 //       (err, token) => {
 //         if (err) res.send(err);
 //         const mAuth = Auth({
@@ -49,69 +49,110 @@ app.get("/", (req, res) => {
 
 //! FOR REGISTERING NEW USER
 app.post("/register", headerAuth, async (req, res) => {
-	try {
-		const { error } = registerValidation(req.body);
-		if (error) {
-			res.setHeader("Content-Type", "application/json");
-			res.json({ error: error.details[0].message });
-			return;
-		}
-
-		console.log(req.body);
-		//! CHECKING IF EMAIL IS EXIST OR NOT
-		Login.findOne({ email: req.body.email }).then(data => {
-			if (data != null) {
-				console.log(data);
-				res.json({ error: "Already Existed User" });
-				return;
-			} else {
-				//! REGISTERATION INFORMATION TO MONGODB
-				const mObj = Register({
-					name: req.body.name,
-					email: req.body.email,
-					pass: req.body.password,
-					phone: req.body.phonenumber
-				});
-
-				mObj.save().then(data => {
-					//! GENERATING TOKEN FROM _id
-					jwt.sign(
-						{ id: data._id },
-						process.env.SECRET_KEY,
-						(err, token) => {
-							//! CHECKING FOR ERROR
-							if (err) {
-								res.json({ error: "Failure" });
-								return;
-							}
-							//! STORING email,pass,jwttoken TO MONGODB FOR LOGIN
-							const mLogin = Login({
-								jwt: token,
-								email: data.email,
-								pass: data.pass
-							});
-							mLogin.save().then(data => {
-								//! IF EVERYTHING REMAINS SUCESSFUL
-								const mAuth = Auth({
-									jwtToken: token
-								});
-								mAuth.save().then(data => {
-									res.json({ error: "Successful" });
-									console.log("HERE");
-									return;
-								});
-							});
-						}
-					);
-				});
-			}
-		});
-	} catch (err) {
-		console.log(err);
-		res.setHeader("Content-Type", "application/json");
-		res.json({ error: "Failure" });
+	// console.log(req.body);
+	const { error } = registerValidation(req.body);
+	if (error) {
+		console.log(error);
+		res.json({ error: error.details[0].message });
 		return;
 	}
+
+	//! REGISTERATION INFORMATION TO MONGODB
+	const mObj = Register({
+		name: req.body.name,
+		email: req.body.email,
+		pass: req.body.password,
+		phone: req.body.phonenumber,
+		paid: req.body.paid,
+		years: req.body.years,
+		paymentID: req.body.paymentID,
+		paymentDetailID: req.body.paymentDetailID
+	});
+
+	if (req.body.years == "1") {
+		time = 3153600;
+	} else if (req.body.years == "2") {
+		time = 63072000;
+	} else if (req.body.years == "3") {
+		time = 9460800;
+	}
+	mObj.save()
+		.then(data => {
+			//! GENERATING TOKEN FROM _id
+			jwt.sign(
+				{ id: data._id },
+				process.env.SECRET_KEY,
+				{ expiresIn: time },
+				(err, token) => {
+					//! CHECKING FOR ERROR
+					if (err) {
+						console.log(err);
+						res.json({ error: "Failure" });
+						return;
+					}
+					//! STORING email,pass,jwttoken TO MONGODB FOR LOGIN
+					const mLogin = Login({
+						jwt: token,
+						email: data.email,
+						pass: data.pass
+					});
+					mLogin.save().then(data => {
+						//! IF EVERYTHING REMAINS SUCESSFUL
+						const mAuth = Auth({
+							jwtToken: token
+						});
+						mAuth.save().then(data => {
+							res.json({ error: "Successful" });
+							return;
+						});
+					});
+				}
+			);
+		})
+		.catch(err => {
+			console.log(err);
+			res.json({ error: "Failure" });
+			return;
+		});
+});
+
+app.post("/ExistingUser", (req, res) => {
+	Register.findOne({ email: req.body.email })
+		.then(data => {
+			if (data != null) {
+				res.json({ result: "Existed" });
+				return;
+			} else {
+				res.json({ result: "New" });
+				return;
+			}
+		})
+		.catch(err => {
+			res.json({ result: "Failure" });
+			return;
+		});
+});
+
+app.post("/updatePaymentDetails", headerAuth, (req, res) => {
+	console.log(req.body);
+	Register.findOne({ email: req.body.email })
+		.then(Data => {
+			if (Data != null) {
+				Data.paid = "true";
+				Data.save().then(data => {
+					res.json({ result: "Successful" });
+					return;
+				});
+			} else {
+				res.json({ result: "Failure" });
+				return;
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.json({ result: "Failure" });
+			return;
+		});
 });
 
 //! FOR LOGIN
@@ -123,42 +164,57 @@ app.post("/user", headerAuth, (req, res) => {
 		res.json({ result: error.details[0].message });
 		return;
 	}
-	try {
-		Login.findOne({ email: req.body.usrEmail }).then(data => {
+	Register.findOne({ email: req.body.usrEmail })
+		.then(data => {
 			if (data != null) {
-				if (data.pass == req.body.usrPassword) {
-					Auth.findOne({ jwtToken: data.jwt })
-						.then(authData => {
-							if (authData != null) {
-								res.json({
-									result: "Successful",
-									token: data.jwt,
-									userid: authData._id
-								});
-								return;
+				if (data.paid == "false") {
+					res.json({ result: "NotPaid" });
+					return;
+				}
+				if (data.paid == "true") {
+					Login.findOne({ email: req.body.usrEmail })
+						.then(data => {
+							if (data != null) {
+								if (data.pass == req.body.usrPassword) {
+									Auth.findOne({ jwtToken: data.jwt })
+										.then(authData => {
+											if (authData != null) {
+												res.json({
+													result: "Successful",
+													token: data.jwt,
+													userid: authData._id
+												});
+												return;
+											} else {
+												res.json({ result: "Failure" });
+												return;
+											}
+										})
+										.catch(error => {
+											if (error) throw error;
+										});
+									// res.json({ result: "Successful", token: data.jwt });
+									// return;
+								} else {
+									res.json({ result: "Invalid Credential" });
+									return;
+								}
 							} else {
 								res.json({ result: "Failure" });
 								return;
 							}
 						})
-						.catch(error => {
-							if (error) throw error;
+						.catch(err => {
+							res.json({ result: "Failure" });
+							return;
 						});
-					// res.json({ result: "Successful", token: data.jwt });
-					// return;
-				} else {
-					res.json({ result: "Invalid Credential" });
-					return;
 				}
-			} else {
-				res.json({ result: "Failure" });
-				return;
 			}
+		})
+		.catch(err => {
+			res.json({ result: "Failure" });
+			return;
 		});
-	} catch (err) {
-		res.json({ result: "Failure" });
-		return;
-	}
 });
 
 app.post("/upload", headerAuth, (req, res) => {
