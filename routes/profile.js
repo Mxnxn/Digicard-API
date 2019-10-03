@@ -104,4 +104,36 @@ app.post("/share", (req, res) => {
 	);
 });
 
+app.get("/:id/vcf", (req, res) => {
+	Login.findOne({ _id: req.params.id })
+		.then(data => {
+			if (data != null) {
+				var vCardsJS = require("vcards-js");
+				var vCard = vCardsJS();
+				vCard.firstName = data.contactPerson;
+				vCard.organization = data.firstName;
+				vCard.cellPhone = [data.contactNumber, data.contactNumber2];
+				vCard.workEmail = data.contactEmail;
+				vCard.workAddress = data.contactAddress;
+				vCard.socialUrls["facebook"] = data.ownerFB;
+				vCard.socialUrls["linkedIn"] = data.ownerLinkedIn;
+				vCard.socialUrls["Instagram"] = data.ownerInsta;
+				vCard.socialUrls["Tweeter"] = data.ownerTweeter;
+				vCard.socialUrls["Pintrest"] = data.ownerPintrest;
+				res.set("Content-Type", 'text/vcard; name="contact.vcf"');
+				res.set(
+					"Content-Disposition",
+					'inline; filename="contact.vcf"'
+				);
+				res.send(vCard.getFormattedString());
+				return;
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.json({ result: "OOPS.." });
+			return;
+		});
+});
+
 module.exports = app;

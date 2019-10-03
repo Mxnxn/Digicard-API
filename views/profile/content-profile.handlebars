@@ -31,6 +31,15 @@
                         <div class="firmDetails">
                             <ul style="list-style-type: none;padding-left:20px;padding-right:20px">
                                 <li>
+                                    <form method="get" action="/profile/{{post._id}}/vcf">
+                                        <i class="fa fa-address-card" style="color: #23374d" aria-hidden="true"></i>
+                                        <span style="padding-left:10px "></span>
+                                        <button style="border: 1px solid #eeeeee; background:#eeeeee;color:#23374d"
+                                            type="submit">Add to
+                                            Contact</button>
+                                    </form>
+                                </li>
+                                <li>
                                     <i class="fa fa-user" style="color: #999999" aria-hidden="true"></i>
                                     <span style="padding-left:20px "></span>{{post.contactPerson}}
                                 </li>
@@ -59,6 +68,7 @@
                                         {{post.contactAddress}}
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                         <div class="shareButtons" style="margin-right:10px">
