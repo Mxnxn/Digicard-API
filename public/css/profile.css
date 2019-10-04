@@ -12,6 +12,8 @@ body {
 .main {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 .lol {
@@ -37,7 +39,7 @@ body {
 
 .nav-links {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
@@ -853,14 +855,15 @@ ul.portfolio li.active {
 	}
 
 	.shareButtons {
+		width: 90vw;
 		text-decoration: none;
 		grid-template-rows: 1fr;
 		grid-template-columns: 1fr 1fr 1.2fr 1fr 1fr;
 	}
 }
 
-@media (max-height: 670px) {
+@media (max-height: 730px) {
 	.block3 {
-		grid-template-rows: 60% 25%;
+		grid-template-rows: 65% 25%;
 	}
 }
