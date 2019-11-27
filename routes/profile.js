@@ -5,14 +5,17 @@ const Logo = require("../models/Logo");
 const jwt = require("jsonwebtoken");
 const Auth = require("../models/Auth");
 const Images = require("../models/Images");
-
-app.all("/*", (req, res, next) => {
-	req.app.locals.layouts = "profile";
-	next();
+const log4js = require("log4js");
+log4js.configure({
+	appenders: { profile: { type: "file", filename: "profile.log" } },
+	categories: { default: { appenders: ["profile"], level: "info" } }
 });
 
-app.get("/", (req, res) => {
-	res.render("profile/content-profile");
+const logger = log4js.getLogger("profile");
+
+app.all("/*", (req, res, next) => {
+	req.app.locals.layout = "profile";
+	next();
 });
 
 app.get("/:id", async (req, res) => {
@@ -26,6 +29,7 @@ app.get("/:id", async (req, res) => {
 					process.env.SECRET_KEY,
 					async (err, decode) => {
 						if (err) {
+							console.log(err);
 							res.send("Expired");
 							return;
 						}
@@ -39,9 +43,11 @@ app.get("/:id", async (req, res) => {
 											await Images.find({
 												_id: value
 											}).then(data => {
-												imagelist.push({
-													imagepath: data[0].image
-												});
+												if (data.length > 0) {
+													imagelist.push({
+														imagepath: data[0].image
+													});
+												}
 											});
 										}
 									);
@@ -53,22 +59,60 @@ app.get("/:id", async (req, res) => {
 											if (data != null) {
 												filename = data.logo;
 											}
-											let address = xdata.contactAddress;
-											lol = address.replace("/", " ");
-											await res.render(
-												"profile/content-profile",
-												{
-													post: xdata,
-													xx: lol,
-													userid: authData._id,
-													token: jwt,
-													filepath: filename,
-													images: imagelist
-												}
+											if (xdata.address != null) {
+												let address =
+													xdata.contactAddress;
+												lol = address.replace("/", " ");
+											} else {
+												lol = "no address inserted";
+											}
+											logger.info(
+												`request for /profile/id; owner : ${xdata.email} `
 											);
+											console.log(imagelist);
+											if (xdata.theme == 1) {
+												await res.render(
+													"profile/content-profile",
+													{
+														post: xdata,
+														xx: lol,
+														userid: authData._id,
+														token: jwt,
+														filepath: filename,
+														images: imagelist
+													}
+												);
+											} else if (xdata.theme == 2) {
+												await res.render(
+													"profile/content-profile1",
+													{
+														post: xdata,
+														xx: lol,
+														userid: authData._id,
+														token: jwt,
+														filepath: filename,
+														images: imagelist
+													}
+												);
+											} else {
+												await res.render(
+													"profile/content-profile3",
+													{
+														post: xdata,
+														xx: lol,
+														userid: authData._id,
+														token: jwt,
+														filepath: filename,
+														images: imagelist
+													}
+												);
+											}
 										})
 										.catch(err => {
 											if (err) {
+												logger.error(
+													`request for /profile/id; owner : ${xdata.email} generated Error for logo collection `
+												);
 												console.log(err);
 												res.send(
 													"Something Gone Wrong"
@@ -79,7 +123,9 @@ app.get("/:id", async (req, res) => {
 								})
 								.catch(err => {
 									if (err) {
-										console.log(err);
+										logger.error(
+											`request for /profile/id; owner : ${xdata.email} generated Error for logo collection `
+										);
 										res.send("Something Gone Wrong");
 										return;
 									}
@@ -88,19 +134,26 @@ app.get("/:id", async (req, res) => {
 					}
 				);
 			} else {
+				logger.error(
+					`request for /profile/id; ${req.ip} generated Error and Wrong id passed `
+				);
 				res.send("NO USER FOUND");
 				return;
 			}
 		})
 		.catch(() => {
+			logger.error(
+				`request for /profile/id; ${req.ip} generated error for mAuth`
+			);
 			res.send("Something Gone Wrong");
 			return;
 		});
 });
 
 app.post("/share", (req, res) => {
+	logger.warn(`request for /share; ${req.ip}`);
 	res.redirect(
-		`https://wa.me/91${req.body.mNumber}/?text=Here%20is%20my%20Digicard%0Ahttps://digivcard.herokuapp.com/profile/${req.body.cardid}`
+		`https://wa.me/91${req.body.mNumber}/?text=Here%20is%20my%20Digicard%0Ahttps://thedigicard.in/profile/${req.body.cardid}`
 	);
 });
 
@@ -115,6 +168,7 @@ app.get("/:id/vcf", (req, res) => {
 				vCard.cellPhone = [data.contactNumber, data.contactNumber2];
 				vCard.workEmail = data.contactEmail;
 				vCard.workAddress = data.contactAddress;
+				vCard.workUrl = data.ownerWeb;
 				vCard.socialUrls["facebook"] = data.ownerFB;
 				vCard.socialUrls["linkedIn"] = data.ownerLinkedIn;
 				vCard.socialUrls["Instagram"] = data.ownerInsta;

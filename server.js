@@ -6,6 +6,9 @@ const bodyparser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const Helmet = require("helmet");
+const http = require("http");
+const https = require("https");
 
 // CONNECTING MONGO DB
 mongoose
@@ -25,6 +28,7 @@ app.use(
 		resave: true
 	})
 );
+app.use(Helmet());
 
 //! VIEW ENGINE AS HANDLEBARS
 app.engine("handlebars", exphbs({ defaultLayout: "profile" }));
@@ -45,13 +49,44 @@ app.use(express.static(path.join(__dirname, "public")));
 //! MIDDLEWARES
 const profile = require("./routes/profile");
 const index = require("./routes/index");
-const payment = require("./routes/payment");
+const contact = require("./routes/contact");
 
 app.use("/", index);
+app.use("/contact", contact);
 app.use("/profile", profile);
-app.use("/payment", payment);
 
-//! LISTINING
-app.listen(process.env.PORT || 3000, () => {
+// //! LISTINING
+app.listen(3000, () => {
 	console.log(`Listening on ${process.env.PORT}`);
 });
+
+// const privateKey = fs.readFileSync(
+// 	"/etc/letsencrypt/live/www.thedigicard.in/privkey.pem",
+// 	"utf8"
+// );
+// const certificate = fs.readFileSync(
+// 	"/etc/letsencrypt/live/www.thedigicard.in/cert.pem",
+// 	"utf8"
+// );
+// const ca = fs.readFileSync(
+// 	"/etc/letsencrypt/live/www.thedigicard.in/chain.pem",
+// 	"utf8"
+// );
+
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
+
+// const httpsServer = https.createServer(credentials, app);
+
+// const httpServer = http
+// 	.createServer(function(req, res) {
+// 		res.writeHead(301, { Location: "https://thedigicard.in/" });
+// 	})
+// 	.listen(80);
+
+// httpsServer.listen(443, () => {
+// 	console.log("HTTPS Server running on port 443");
+// });

@@ -31,16 +31,24 @@ const Login = new Schema({
 	contactEmail: {
 		type: String
 	},
+	contactAddressStreet: {
+		type: String
+	},
 	contactAddress: {
 		type: String
 	},
-	firmLogo: [Schema.Types.ObjectId, (ref = "Logo")],
-	firmImages: [Schema.Types.ObjectId, (ref = "Images")],
+	firmLogo: [{ type: Schema.Types.ObjectId, ref: "Logo" }],
+	firmImages: [{ type: Schema.Types.ObjectId, ref: "Images" }],
 	ownerFB: { type: String },
 	ownerInsta: { type: String },
 	ownerTweeter: { type: String },
 	ownerLinkedIn: { type: String },
-	ownerPintrest: { type: String }
+	ownerPintrest: { type: String },
+	ownerWeb: { type: String },
+	theme: {
+		type: String,
+		default: "1"
+	}
 });
 
 module.exports = mongoose.model("Login", Login);

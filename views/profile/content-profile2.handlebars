@@ -1,0 +1,515 @@
+<link rel="stylesheet" href="/css/1/profile.css">
+<div class="mainx">
+    <div class="main">
+        <div class="navx" style="background: #23374d;">
+            <div class="nav-links">
+                <div class="nav-link1">
+                    <p class="homee"><i class="fa fa-home fa-2x" style="color:#FFF"></i></p>
+                </div>
+                <div class="nav-link2">
+                    <p class="portfolioo"><i class="fa fa-archive fa-2x" style="color:#FFF"></i></p>
+                </div>
+                <div class="nav-link3">
+                    <p class="share"><i class="fa fa-share-alt fa-2x" style="color:#FFF"></i></p>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="card" style="background:#eeeeee">
+                <div class="outerblock1">
+                    <div class="block2" style="padding-right:20px;padding-left:30px">
+                        {{#if post}}
+                        <h1 class="firmLogo"><img style="height:100px;width:100px;border-radius:50%"
+                                src="/uploads/{{post._id}}/{{filepath}}">
+                        </h1>
+                        <h1 class="firmTitle" style="color: #23374d">{{post.firmName}}</h1>
+                        <h4 class="firmDescription" style="color: #1089ff">{{post.firmDetail}}</h4>
+                        {{/if}}
+                    </div>
+                    {{#if post}}
+                    <div class="block3">
+                        <div class="firmDetails">
+                            <ul style="list-style-type: none;padding-left:20px;padding-right:20px">
+                                <li>
+                                    <form method="get" action="/profile/{{post._id}}/vcf">
+                                        <i class="fa fa-address-card" style="color: #23374d" aria-hidden="true"></i>
+                                        <span style="padding-left:10px "></span>
+                                        <button style="border: 1px solid #eeeeee; background:#eeeeee;color:#23374d"
+                                            type="submit">Add to
+                                            Contact</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user" style="color: #999999" aria-hidden="true"></i>
+                                    <span style="padding-left:20px "></span>{{post.contactPerson}}
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone" style="color: #999999" aria-hidden="true"></i>
+                                    <span style="padding-left:20px "></span>
+                                    <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
+                                        {{post.contactNumber}}</a>
+                                    {{#if post.contactNumber2}}
+                                    / <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
+                                        {{post.contactNumber2}}</a>
+                                    {{/if}}
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope" style="color: #999999" aria-hidden="true"></i><span
+                                        style="padding-left:20px "></span>
+                                    <a href="mailto:{{post.contactEmail}}" style="text-decoration:none">
+                                        {{post.contactEmail}}
+                                    </a>
+                                </li>
+                                {{#if post.contactAddress}}
+                                <li style="display: grid;grid-template-columns: 20px auto;grid-template-rows: 1fr">
+                                    <div>
+                                        <i class="fa fa-location-arrow" style="color: #999999;padding-top:5px"
+                                            aria-hidden="true"></i>
+                                    </div>
+                                    <div style="margin-left:15px">
+                                        {{post.contactAddressStreet}},{{post.contactAddress}}
+                                    </div>
+                                </li>
+                                {{/if}}
+                                {{#if post.ownerWeb}}
+                                <li>
+                                    <i class="fa fa-globe" style="color: #999999" aria-hidden="true"></i><span
+                                        style="padding-left:20px "></span>
+                                    <a href="{{post.ownerWeb}}" style="text-decoration:none">
+                                        {{post.ownerWeb}}
+                                    </a>
+                                </li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                        <div class="shareButtons">
+                            <div class="btn1">
+                                {{#if post.ownerFB}}
+                                <a href="{{post.ownerFB}}">
+                                    <div class="btn" style="color: #fff;background:#1877f2">
+                                        <i class="fa fa-2x fa-facebook-square" aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+                            </div>
+                            <div class="btn2">
+                                {{#if post.contactNumber}}
+
+                                <a style="text-decoration:none;" href="tel:{{post.contactNumber}}">
+                                    <div class="btn" style="background:#5851db;color:#fff">
+                                        <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+
+                            </div>
+                            <div class="btn3" style="margin-bottom: 20px">
+                                <div class="popup">
+                                    <nav class="menu">
+                                        <input type="checkbox" href="#" class="menu-open" name="menu-open"
+                                            id="menu-open" />
+                                        <label class="menu-open-button" for="menu-open" style="background:#23374d">
+                                            <i id="fashare" class="fa fa-share-alt mt-2" style="color:#FFF"></i>
+
+                                        </label>
+                                        {{#if post.contactAddress}}
+                                        <a href="https://www.google.com/maps/search/{{xx}}"
+                                            style="text-decoration:none;" class="menu-item blue"> <i
+                                                class="fa fa-map-marker"></i> </a>
+                                        {{/if}}
+                                        {{#if post.contactEmail}}
+                                        <a href="mailto:{{post.contactEmail}}" style="text-decoration:none;"
+                                            class="menu-item green"> <i class="fa fa-envelope"></i> </a>
+                                        {{/if}}
+
+                                        {{#if post.ownerLinkedIn}}
+                                        <a href="{{post.ownerLinkedIn}}" style="text-decoration:none;"
+                                            class="menu-item red"> <i class="fa fa-linkedin"></i> </a>
+                                        {{/if}}
+                                        {{#if post.ownerTweeter}}
+                                        <a href="{{post.ownerTweeter}}" style="text-decoration:none;"
+                                            class="menu-item purple"> <i class="fa fa-twitter"></i> </a>
+                                        {{/if}}
+                                        {{#if post.ownerPintrest}}
+                                        <a href="{{post.ownerPintrest}}" style="text-decoration:none;"
+                                            class="menu-item orange"> <i class="fa fa-pinterest-p"></i> </a>
+                                        {{/if}}
+                                    </nav>
+                                </div>
+
+                            </div>
+                            <div class="btn4">
+                                {{#if post.contactNumber}}
+                                <a style="text-decoration:none;" href="https://wa.me/91{{post.contactNumber}}/?text=Hi">
+                                    <div class="btn" style="background:#25D366;color:#fff">
+                                        <i class="fa fa-2x fa-whatsapp" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+                            </div>
+                            <div class="btn5">
+                                {{#if post.ownerInsta}}
+                                <a href="{{post.ownerInsta}}" style="text-decoration:none;">
+                                    <div class="btn" style="background:#e1306c;color:#fff">
+                                        <i class="fa fa-2x fa-instagram" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+                            </div>
+                        </div>
+
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="overlap-card hiddenx" style="background: #eeeeee">
+            <div class="head" style="color: #23374d;">
+                <h2 style="font-weight:900;">Portfolio.</h2>
+                <p style="font-weight:500;font-size:1.1em">I managed to create some simple Designs.</p>
+            </div>
+            <div class="wrapper">
+                <div id="slider-wrap">
+                    <ul id="slider" style="padding:0;">
+                        {{#each images}}
+
+                        <li>
+                            <div>
+                                <img src="/uploadImages/{{imagepath}}" alt="">
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                    <div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
+                    <div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
+                    <div id="counter" style="color:#9f9f9f"></div>
+
+                    <div id="pagination-wrap">
+                        <ul>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="overlap-card2 hiddenx" style="background: #eeeeee;text-align:center">
+        <div style="display:flex;flex-direction:column;jutify-content:center;align-self:center;color:#23374d">
+            <h2>Whats App Sharing :</h2>
+            <form class="form" action="/profile/share" method="post">
+                <input class="inputField" type="number" name="mNumber" placeholder="eg. 12345 67890">
+                <input type="hidden" name="cardid" value="{{userid}}">
+                <button class="submit" type="submit">Share <i class="fa fa-share"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<style>
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #slider-wrap {
+        width: 84vw;
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    #slider-wrap ul#slider {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    #slider-wrap ul#slider li {
+        float: left;
+        position: relative;
+        width: 84vw;
+        height: 350px;
+        display: flex;
+    }
+
+    #slider-wrap ul#slider li>div {
+        position: absolute;
+        top: 20px;
+        width: inherit;
+        height: auto;
+    }
+
+    #slider-wrap ul#slider li>div img {
+        height: auto;
+        width: 100%;
+    }
+
+
+    #slider-wrap ul#slider li i {
+        text-align: center;
+        line-height: 400px;
+        display: block;
+        width: 100%;
+        font-size: 90px;
+    }
+
+
+    /*btns*/
+    .btns {
+        position: absolute;
+        width: 50px;
+        height: 60px;
+        top: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -25px;
+        line-height: 57px;
+        text-align: center;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 100;
+
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -ms-user-select: none;
+
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
+        -ms-transition: all 0.1s ease;
+        transition: all 0.1s ease;
+    }
+
+    .btns:hover {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    #next {
+        right: -50px;
+        border-radius: 7px 0px 0px 7px;
+    }
+
+    #previous {
+        left: -50px;
+        border-radius: 0px 7px 7px 7px;
+    }
+
+    #counter {
+        top: 12px;
+        right: 5px;
+        width: auto;
+        position: absolute;
+    }
+
+    #slider-wrap.active #next {
+        right: 0px;
+    }
+
+    #slider-wrap.active #previous {
+        left: 0px;
+    }
+
+
+    /*bar*/
+    #pagination-wrap {
+        min-width: 20px;
+        margin-right: auto;
+        height: 15px;
+        position: relative;
+        text-align: center;
+    }
+
+    #pagination-wrap ul {
+        width: 100%;
+        padding: 0;
+    }
+
+    #pagination-wrap ul li {
+        margin: 0 4px;
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #9f9f9f;
+        opacity: 0.5;
+        position: relative;
+        top: 0;
+
+
+    }
+
+    #pagination-wrap ul li.active {
+        width: 12px;
+        height: 12px;
+        top: 3px;
+        opacity: 1;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
+    }
+
+    /*ANIMATION*/
+    #slider-wrap ul,
+    #pagination-wrap ul li {
+        -webkit-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+        -moz-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+        -o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+        -ms-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+        transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+    }
+</style>
+<script src="/js/swipe.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $('.menu-open').change(function () {
+            if ($(this).is(":checked")) {
+                $('.btn1,.btn2,.btn4,.btn5,.block1,.block2,.firmDetails').addClass("blur");
+                $('#fashare').removeClass('fa-share-alt');
+                $('#fashare').addClass('fa-close');
+            } else {
+                $('#fashare').addClass('fa-share-alt');
+                $('#fashare').removeClass('fa-close');
+                $('.btn1,.btn2,.btn4,.btn5,.block1,.block2,.firmDetails').removeClass("blur");
+
+            }
+        });
+
+        $('.nav-link3').on('click', function () {
+            $('.card').fadeOut("slow");
+            $('.card').addClass("hiddenx");
+            $('.overlap-card').fadeOut("slow");
+            $('.overlap-card').addClass("hiddenx");
+            $('.overlap-card,.card').removeClass("active");
+            $('.overlap-card2').fadeIn("slow");
+            $('.overlap-card2').css("display", "grid");
+            $('.overlap-card2').removeClass("hiddenx");
+            $('.overlap-card2').addClass("active");
+            $('.fa-share-alt').css("color", "#FFF");
+        });
+
+        $('.overlap-card').css("display", "none");
+        $('.overlap-card2').css("display", "none");
+
+        $('.nav-link1').on('click', function () {
+            $('.overlap-card').fadeOut("slow");
+            $('.overlap-card').addClass("hiddenx");
+            $('.overlap-card2').fadeOut("slow");
+            $('.overlap-card2').addClass("hiddenx");
+            $('.overlap-card,.overlap-card2').removeClass("active");
+            $('.card').fadeIn("slow");
+            $('.card').css("display", "grid");
+            $('.card').removeClass("hiddenx");
+            $('.fa-home').css("color", "#FFF");
+        });
+
+        $('.nav-link2').on('click', function () {
+            $('.card').addClass("hiddenx");
+            $('.card').fadeOut("slow");
+            $('.overlap-card2').addClass("hiddenx");
+            $('.overlap-card2').fadeOut("slow");
+            $('.card,.overlap-card2').removeClass("active");
+            $('.overlap-card').fadeIn("slow");
+            $('.overlap-card').css("display", "grid");
+            $('.overlap-card').removeClass("hiddenx");
+            $('.fa-archive').css("color", "#FFF");
+        });
+
+        var element = document.getElementById('mySwipe');
+        window.mySwipe = new Swipe(element, {
+            startSlide: 0,
+            auto: 3000,
+            draggable: false,
+            autoRestart: false,
+            continuous: true,
+            disableScroll: true,
+            stopPropagation: true,
+            callback: function (index, element) { },
+            transitionEnd: function (index, element) { }
+        });
+    });
+
+    //current position
+    var pos = 0;
+    //number of slides
+    var totalSlides = $('#slider-wrap ul li').length;
+    //get the slide width
+    var sliderWidth = $('#slider-wrap').width();
+
+
+    $(document).ready(function () {
+
+
+        $('#slider-wrap ul#slider').width(sliderWidth * totalSlides);
+
+        $('#next').click(function () {
+            slideRight();
+        });
+
+        $('#previous').click(function () {
+            slideLeft();
+        });
+
+
+        var autoSlider = setInterval(slideRight, 3000);
+
+        $.each($('#slider-wrap ul li'), function () {
+            var c = $(this).attr("data-color");
+            $(this).css("background", c);
+
+            var li = document.createElement('li');
+            $('#pagination-wrap ul').append(li);
+        });
+
+        countSlides();
+
+        pagination();
+
+        $('#slider-wrap').hover(
+            function () { $(this).addClass('active'); clearInterval(autoSlider); },
+            function () { $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+        );
+    });//DOCUMENT READY
+
+
+    function slideLeft() {
+        pos--;
+        if (pos == -1) { pos = totalSlides - 1; }
+        $('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+
+        countSlides();
+        pagination();
+    }
+
+    function slideRight() {
+        pos++;
+        if (pos == totalSlides) { pos = 0; }
+        $('#slider-wrap ul#slider').css('left', -(sliderWidth * pos));
+
+        countSlides();
+        pagination();
+    }
+
+    function countSlides() {
+        $('#counter').html(pos + 1 + ' / ' + totalSlides);
+    }
+
+    function pagination() {
+        $('#pagination-wrap ul li').removeClass('active');
+        $('#pagination-wrap ul li:eq(' + pos + ')').addClass('active');
+    }
+</script>

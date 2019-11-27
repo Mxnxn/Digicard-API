@@ -1,0 +1,415 @@
+<link rel="stylesheet" href="/css/3/css/profile.css">
+<link rel="stylesheet" href="/css/3/css/plugin.css">
+
+<div class="mainx">
+    <div class="main">
+        <div class="navx" style="background: #23374d;">
+            <div class="nav-links">
+                <div class="nav-link1">
+                    <p class="homee"><i class="fa fa-home fa-2x" style="color:#FFF"></i></p>
+                </div>
+                <div class="nav-link2">
+                    <p class="portfolioo"><i class="fa fa-archive fa-2x" style="color:#FFF"></i></p>
+                </div>
+                <div class="nav-link3">
+                    <p class="share"><i class="fa fa-share-alt fa-2x" style="color:#FFF"></i></p>
+                </div>
+            </div>
+
+        </div>
+        <div class="content">
+            <div class="card" style="background:#eeeeee">
+                <div class="outerblock1">
+                    <div class="block2" style="padding-right:20px;padding-left:30px">
+                        {{#if post}}
+                        <h1 class="firmLogo"><img style="height:100px;width:100px;border-radius:50%"
+                                src="/uploads/{{post._id}}/{{filepath}}">
+                        </h1>
+                        <h1 class="firmTitle" style="color: #23374d">{{post.firmName}}</h1>
+                        <h4 class="firmDescription" style="color: #1089ff">{{post.firmDetail}}</h4>
+                        {{/if}}
+                    </div>
+                    {{#if post}}
+                    <div class="block3">
+                        <div class="firmDetails">
+                            <ul style="list-style-type: none;padding-left:20px;padding-right:20px">
+                                <li>
+                                    <form method="get" action="/profile/{{post._id}}/vcf">
+                                        <i class="fa fa-address-card" style="color: #23374d" aria-hidden="true"></i>
+                                        <span style="padding-left:10px "></span>
+                                        <button style="border: 1px solid #eeeeee; background:#eeeeee;color:#23374d"
+                                            type="submit">Add to
+                                            Contact</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user" style="color: #999999" aria-hidden="true"></i>
+                                    <span style="padding-left:20px "></span>{{post.contactPerson}}
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone" style="color: #999999" aria-hidden="true"></i>
+                                    <span style="padding-left:20px "></span>
+                                    <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
+                                        {{post.contactNumber}}</a>
+                                    {{#if post.contactNumber2}}
+                                    / <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
+                                        {{post.contactNumber2}}</a>
+                                    {{/if}}
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope" style="color: #999999" aria-hidden="true"></i><span
+                                        style="padding-left:20px "></span>
+                                    <a href="mailto:{{post.contactEmail}}" style="text-decoration:none">
+                                        {{post.contactEmail}}
+                                    </a>
+                                </li>
+                                {{#if post.contactAddress}}
+                                <li style="display: grid;grid-template-columns: 20px auto;grid-template-rows: 1fr">
+                                    <div>
+                                        <i class="fa fa-location-arrow" style="color: #999999;padding-top:5px"
+                                            aria-hidden="true"></i>
+                                    </div>
+                                    <div style="margin-left:15px">
+                                        {{post.contactAddressStreet}},{{post.contactAddress}}
+                                    </div>
+                                </li>
+                                {{/if}}
+                                {{#if post.ownerWeb}}
+                                <li>
+                                    <i class="fa fa-globe" style="color: #999999" aria-hidden="true"></i><span
+                                        style="padding-left:20px "></span>
+                                    <a href="{{post.ownerWeb}}" style="text-decoration:none">
+                                        {{post.ownerWeb}}
+                                    </a>
+                                </li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                        <div class="shareButtons">
+                            <div class="btn1">
+                                {{#if post.ownerFB}}
+                                <a href="{{post.ownerFB}}">
+                                    <div class="btn" style="color: #fff;background:#1877f2">
+                                        <i class="fa fa-2x fa-facebook-square" aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+                            </div>
+                            <div class="btn2">
+                                {{#if post.contactNumber}}
+
+                                <a style="text-decoration:none;" href="tel:{{post.contactNumber}}">
+                                    <div class="btn" style="background:#5851db;color:#fff">
+                                        <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+
+                            </div>
+                            <div class="btn3" style="margin-bottom: 20px">
+                                <div class="popup">
+                                    <nav class="menu">
+                                        <input type="checkbox" href="#" class="menu-open" name="menu-open"
+                                            id="menu-open" />
+                                        <label class="menu-open-button" for="menu-open" style="background:#23374d">
+                                            <i id="fashare" class="fa fa-share-alt mt-2" style="color:#FFF"></i>
+
+                                        </label>
+                                        {{#if post.contactAddress}}
+                                        <a href="https://www.google.com/maps/search/{{xx}}"
+                                            style="text-decoration:none;" class="menu-item blue"> <i
+                                                class="fa fa-map-marker"></i> </a>
+                                        {{/if}}
+                                        {{#if post.contactEmail}}
+                                        <a href="mailto:{{post.contactEmail}}" style="text-decoration:none;"
+                                            class="menu-item green"> <i class="fa fa-envelope"></i> </a>
+                                        {{/if}}
+
+                                        {{#if post.ownerLinkedIn}}
+                                        <a href="{{post.ownerLinkedIn}}" style="text-decoration:none;"
+                                            class="menu-item red"> <i class="fa fa-linkedin"></i> </a>
+                                        {{/if}}
+                                        {{#if post.ownerTweeter}}
+                                        <a href="{{post.ownerTweeter}}" style="text-decoration:none;"
+                                            class="menu-item purple"> <i class="fa fa-twitter"></i> </a>
+                                        {{/if}}
+                                        {{#if post.ownerPintrest}}
+                                        <a href="{{post.ownerPintrest}}" style="text-decoration:none;"
+                                            class="menu-item orange"> <i class="fa fa-pinterest-p"></i> </a>
+                                        {{/if}}
+                                    </nav>
+                                </div>
+
+                            </div>
+                            <div class="btn4">
+                                {{#if post.contactNumber}}
+                                <a style="text-decoration:none;" href="https://wa.me/91{{post.contactNumber}}/?text=Hi">
+                                    <div class="btn" style="background:#25D366;color:#fff">
+                                        <i class="fa fa-2x fa-whatsapp" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+
+                            </div>
+                            <div class="btn5">
+                                {{#if post.ownerInsta}}
+                                <a href="{{post.ownerInsta}}" style="text-decoration:none;">
+                                    <div class="btn" style="background:#e1306c;color:#fff">
+                                        <i class="fa fa-2x fa-instagram" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                {{/if}}
+                            </div>
+                        </div>
+
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="overlap-card hidden" style="background: #eeeeee">
+                <div class="head">
+                    <div class="">
+                        <div class="section-title" style="color: #23374d;">
+                            <h2 style="font-weight:900;">Portfolio.</h2>
+                            <p style="font-weight:500;font-size:1.1em">I managed to create some simple Designs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-inner">
+                    <div class="imgcarouselbody">
+
+
+                        {{#each images}}
+                        <div class="mix guis">
+                            <div class="item">
+                                <a href="/uploadImages/{{imagepath}}" class="portfolio-popup" title="">
+                                    <img class="imgcarousel" src="/uploadImages/{{imagepath}}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+
+                        {{!-- 
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/m.png" class="portfolio-popup" title="City Name for Weather">
+                                <img class="imgcarousel" src="/uploads/m.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/bg.png" class="portfolio-popup" title="Flutter Weather App">
+                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/m.png" class="portfolio-popup" title="Flutter Weather App-2">
+                                <img class="imgcarousel" src="/uploads/m.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/bg.png" class="portfolio-popup" title="ITM Attendance App-Signup">
+                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/m.png" class="portfolio-popup" title="ITM Attendance App-Log in">
+                                <img class="imgcarousel" src="/uploads/m.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps" title="ITM Attendance App-Attendance">
+                        <div class="item">
+                            <a href="/uploads/bg.png" class="portfolio-popup">
+                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mix apps">
+                        <div class="item">
+                            <a href="/uploads/m.png" class="portfolio-popup" title="Flutter LoginScreen">
+                                <img class="imgcarousel" src="/uploads/m.png" alt="">
+                            </a>
+                        </div>
+                    </div> --}}
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="overlap-card2 hidden" style="background: #eeeeee;text-align:center">
+                <div style="display:flex;flex-direction:column;jutify-content:center;align-self:center;color:#23374d">
+                    <h2>Whats App Sharing :</h2>
+                    <form class="form" action="/profile/share" method="post">
+                        <input class="inputField" type="number" name="mNumber" placeholder="eg. 12345 67890">
+                        <input type="hidden" name="cardid" value="{{userid}}">
+                        <button class="submit" type="submit">Share <i class="fa fa-share"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<script src="/js/plugin.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $('.menu-open').change(function () {
+            if ($(this).is(":checked")) {
+                $('.btn1,.btn2,.btn4,.btn5,.block1,.block2,.firmDetails').addClass("blur");
+                $('#fashare').removeClass('fa-share-alt');
+                $('#fashare').addClass('fa-close');
+            } else {
+                $('#fashare').addClass('fa-share-alt');
+                $('#fashare').removeClass('fa-close');
+                $('.btn1,.btn2,.btn4,.btn5,.block1,.block2,.firmDetails').removeClass("blur");
+
+            }
+        });
+
+        $('.nav-link3').on('click', function () {
+            $('.card').fadeOut("slow");
+            $('.card').addClass("hidden");
+            $('.overlap-card').fadeOut("slow");
+            $('.overlap-card').addClass("hidden");
+            $('.overlap-card,.card').removeClass("active");
+            $('.overlap-card2').fadeIn("slow");
+            $('.overlap-card2').css("display", "grid");
+            $('.overlap-card2').removeClass("hidden");
+            $('.overlap-card2').addClass("active");
+            $('.fa-share-alt').css("color", "#FFF");
+        });
+
+        //$('.overlap-card').css("display", "none");
+        //$('.overlap-card2').css("display", "none");
+
+        $('.nav-link1').on('click', function () {
+            $('.overlap-card').fadeOut("slow");
+            $('.overlap-card').addClass("hidden");
+            $('.overlap-card2').fadeOut("slow");
+            $('.overlap-card2').addClass("hidden");
+            $('.overlap-card,.overlap-card2').removeClass("active");
+            $('.card').fadeIn("slow");
+            $('.card').css("display", "grid");
+            $('.card').removeClass("hidden");
+            $('.fa-home').css("color", "#FFF");
+        });
+
+        $('.nav-link2').on('click', function () {
+            $('.card').addClass("hidden");
+            $('.card').fadeOut("slow");
+            $('.overlap-card2').addClass("hidden");
+            $('.overlap-card2').fadeOut("slow");
+            $('.card,.overlap-card2').removeClass("active");
+            $('.overlap-card').fadeIn("slow");
+            $('.overlap-card').css("display", "grid");
+            $('.overlap-card').removeClass("hidden");
+            $('.fa-archive').css("color", "#FFF");
+
+        });
+
+
+        $('#arrowclick').change(function () {
+            if ($(this).is(":checked")) {
+                $('.arrow').addClass('rotate');
+            } else {
+                $('.arrow').removeClass('rotate');
+            }
+        });
+
+        $('#checkbox').change(function () {
+            setInterval(function () {
+                moveRight();
+            }, 3000);
+        });
+
+        var slideCount = $('#slider ul li').length;
+        var slideWidth = $('#slider ul li').width();
+        var slideHeight = $('#slider ul li').height();
+        var sliderUlWidth = slideCount * slideWidth;
+
+        $('#slider').css({ width: slideWidth, height: slideHeight });
+
+        $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+
+        $('#slider ul li:last-child').prependTo('#slider ul');
+
+        function moveLeft() {
+            $('#slider ul').animate({
+                left: + slideWidth
+            }, 200, function () {
+                $('#slider ul li:last-child').prependTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        function moveRight() {
+            $('#slider ul').animate({
+                left: - slideWidth
+            }, 200, function () {
+                $('#slider ul li:first-child').appendTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        $('a.control_prev').click(function () {
+            moveLeft();
+        });
+
+        $('a.control_next').click(function () {
+            moveRight();
+        });
+
+    });
+
+
+    $('.portfolio-popup').magnificPopup({
+        type: 'image',
+
+        gallery: { enabled: true },
+        zoom: {
+            enabled: true,
+            duration: 500
+
+        },
+
+        image: {
+            markup: '<div class="mfp-figure portfolio-pop-up">' +
+                '<div class="mfp-close"></div>' +
+                '<div class="mfp-img"></div>' +
+                '<div class="mfp-bottom-bar portfolio_title">' +
+                '<div class="mfp-title"></div>' +
+                '<div class="mfp-counter"></div>' +
+                '</div>' +
+                '</div>',
+
+            titleSrc: function (item) {
+                return item.el.attr('title');
+            }
+        }
+
+
+    });
+
+
+
+
+
+</script>

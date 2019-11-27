@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/1/css/profile.css">
+<link rel="stylesheet" href="/css/1/css/plugin.css">
 <div class="mainx">
     <div class="main">
         <div class="navx" style="background: #23374d;">
@@ -46,16 +48,16 @@
                                 <li>
                                     <i class="fa fa-phone" style="color: #999999" aria-hidden="true"></i>
                                     <span style="padding-left:20px "></span>
+                                    {{!-- +91 98255 05771 --}}
                                     <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
-                                        {{post.contactNumber}}</a>
-                                    {{#if post.contactNumber2}}
+                                        {{post.contactNumber}}</a>{{#if post.contactNumber2}}
                                     / <a href="tel:{{post.contactNumber}}" style="text-decoration:none">+91
-                                        {{post.contactNumber2}}</a>
-                                    {{/if}}
+                                        {{post.contactNumber2}}</a>{{/if}}
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope" style="color: #999999" aria-hidden="true"></i><span
                                         style="padding-left:20px "></span>
+                                    {{!-- manangraphics@hotmail.com --}}
                                     <a href="mailto:{{post.contactEmail}}" style="text-decoration:none">
                                         {{post.contactEmail}}
                                     </a>
@@ -65,97 +67,86 @@
                                         <i class="fa fa-location-arrow" style="color: #999999" aria-hidden="true"></i>
                                     </div>
                                     <div style="margin-left:15px">
-                                        {{post.contactAddress}}
+                                        {{!-- FF-113/114 Sundaram Hub,Op.Petrol Pump,Bahuchraji
+                                    Road,Karelibaug,Vadodara-390018,Gujarat --}}
+                                        {{post.contactAddressStreet}}{{#if post.contactAddress}},{{/if}}{{post.contactAddress}}
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
                         <div class="shareButtons" style="margin-right:10px">
+                            {{#if post}}
                             <div class="btn1">
-                                {{#if post.ownerFB}}
                                 <a href="{{post.ownerFB}}">
                                     <div class="btn" style="color: #fff;background:#1877f2">
                                         <i class="fa fa-2x fa-facebook-square" aria-hidden="true">
                                         </i>
-                                    </div>
                                 </a>
-                                {{/if}}
-
                             </div>
-                            <div class="btn2">
-                                {{#if post.contactNumber}}
-
-                                <a style="text-decoration:none;" href="tel:{{post.contactNumber}}">
-                                    <div class="btn" style="background:#5851db;color:#fff">
-                                        <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
-                                    </div>
-                                </a>
-                                {{/if}}
-
-
-                            </div>
-                            <div class="btn3" style="margin-bottom: 20px">
-                                <div class="popup">
-                                    <nav class="menu">
-                                        <input type="checkbox" href="#" class="menu-open" name="menu-open"
-                                            id="menu-open" />
-                                        <label class="menu-open-button" for="menu-open" style="background:#23374d">
-                                            <i id="fashare" class="fa fa-share-alt mt-2" style="color:#FFF"></i>
-
-                                        </label>
-                                        {{#if post.contactAddress}}
-                                        <a href="https://www.google.com/maps/search/{{xx}}"
-                                            style="text-decoration:none;" class="menu-item blue"> <i
-                                                class="fa fa-map-marker"></i> </a>
-                                        {{/if}}
-                                        {{#if post.contactEmail}}
-                                        <a href="mailto:{{post.contactEmail}}" style="text-decoration:none;"
-                                            class="menu-item green"> <i class="fa fa-envelope"></i> </a>
-                                        {{/if}}
-
-                                        {{#if post.ownerLinkedIn}}
-                                        <a href="{{post.ownerLinkedIn}}" style="text-decoration:none;"
-                                            class="menu-item red"> <i class="fa fa-linkedin"></i> </a>
-                                        {{/if}}
-                                        {{#if post.ownerTweeter}}
-                                        <a href="{{post.ownerTweeter}}" style="text-decoration:none;"
-                                            class="menu-item purple"> <i class="fa fa-twitter"></i> </a>
-                                        {{/if}}
-                                        {{#if post.ownerPintrest}}
-                                        <a href="{{post.ownerPintrest}}" style="text-decoration:none;"
-                                            class="menu-item orange"> <i class="fa fa-pinterest-p"></i> </a>
-                                        {{/if}}
-                                    </nav>
-                                </div>
-
-                            </div>
-                            <div class="btn4">
-                                {{#if post.contactNumber}}
-                                <a style="text-decoration:none;" href="https://wa.me/91{{post.contactNumber}}/?text=Hi">
-                                    <div class="btn" style="background:#25D366;color:#fff">
-                                        <i class="fa fa-2x fa-whatsapp" aria-hidden="true"></i>
-                                    </div>
-                                </a>
-                                {{/if}}
-
-                            </div>
-                            <div class="btn5">
-                                {{#if post.ownerInsta}}
-                                <a href="{{post.ownerInsta}}" style="text-decoration:none;">
-                                    <div class="btn" style="background:#e1306c;color:#fff">
-                                        <i class="fa fa-2x fa-instagram" aria-hidden="true"></i>
-                                    </div>
-                                </a>
-                                {{/if}}
-                            </div>
+                            {{/if}}
                         </div>
+                        {{#if post}}
+                        <div class="btn2">
+                            <a href="{{post.ownerInsta}}" style="text-decoration:none;">
+                                <div class="btn" style="background:#e1306c;color:#fff">
+                                    <i class="fa fa-2x fa-instagram" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        </div>
+                        {{/if}}
+                        <div class="btn3" style="margin-bottom: 20px">
+                            <div class="popup">
+                                <nav class="menu">
+                                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                                    <label class="menu-open-button" for="menu-open" style="background:#23374d">
+                                        <i id="fashare" class="fa fa-share-alt mt-2" style="color:#FFF"></i>
 
+                                    </label>
+                                    <a href="https://www.google.com/maps/search/{{post.contactAddress}}/"
+                                        style="text-decoration:none;" class="menu-item blue"> <i
+                                            class="fa fa-map-marker"></i> </a>
+                                    {{#if post}}
+                                    <a href="{{post.contactEmail}}" style="text-decoration:none;"
+                                        class="menu-item green"> <i class="fa fa-envelope"></i> </a>
+                                    {{/if}}
+
+                                    {{#if post}}
+                                    <a href="{{post.ownerLinkedIn}}" style="text-decoration:none;"
+                                        class="menu-item red"> <i class="fa fa-linkedin"></i> </a>
+                                    {{/if}}
+                                    {{#if post}}
+                                    <a href="{{post.ownerTweeter}}" style="text-decoration:none;"
+                                        class="menu-item purple"> <i class="fa fa-twitter"></i> </a>
+                                    {{/if}}
+                                    {{#if post}}
+                                    <a href="{{post.ownerPintrest}}" style="text-decoration:none;"
+                                        class="menu-item orange"> <i class="fa fa-pinterest-p"></i> </a>
+                                    {{/if}}
+                                </nav>
+                            </div>
+
+                        </div>
+                        <div class="btn4">
+                            <a style="text-decoration:none;" href="tel:{{post.contactNumber}}">
+                                <div class="btn" style="background:#5851db;color:#fff">
+                                    <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="btn5">
+                            <a style="text-decoration:none;" href="https://wa.me/91{{post.contactNumber}}/?text=Hi">
+                                <div class="btn" style="background:#25D366;color:#fff">
+                                    <i class="fa fa-2x fa-whatsapp" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                            {{!-- <i class="fa fa-2x fa-comment" style="color:#f77737" aria-hidden="true"></i> --}}
+                        </div>
                     </div>
                     {{/if}}
                 </div>
             </div>
         </div>
+
         <div class="overlap-card hidden" style="background: #eeeeee">
             <div class="head">
                 <div class="">
@@ -168,77 +159,18 @@
             <div class="portfolio-inner">
                 <div class="imgcarouselbody">
 
-
                     {{#each images}}
                     <div class="mix guis">
                         <div class="item">
-                            <a href="/uploadImages/{{imagepath}}" class="portfolio-popup" title="Flutter LoginScreen">
+                            <a href="/uploadImages/{{imagepath}}" class="portfolio-popup" title="">
                                 <img class="imgcarousel" src="/uploadImages/{{imagepath}}" alt="">
                             </a>
                         </div>
                     </div>
                     {{/each}}
 
-                    {{!-- 
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/m.png" class="portfolio-popup" title="City Name for Weather">
-                                <img class="imgcarousel" src="/uploads/m.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/bg.png" class="portfolio-popup" title="Flutter Weather App">
-                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/m.png" class="portfolio-popup" title="Flutter Weather App-2">
-                                <img class="imgcarousel" src="/uploads/m.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/bg.png" class="portfolio-popup" title="ITM Attendance App-Signup">
-                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/m.png" class="portfolio-popup" title="ITM Attendance App-Log in">
-                                <img class="imgcarousel" src="/uploads/m.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps" title="ITM Attendance App-Attendance">
-                        <div class="item">
-                            <a href="/uploads/bg.png" class="portfolio-popup">
-                                <img class="imgcarousel" src="/uploads/bg.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="mix apps">
-                        <div class="item">
-                            <a href="/uploads/m.png" class="portfolio-popup" title="Flutter LoginScreen">
-                                <img class="imgcarousel" src="/uploads/m.png" alt="">
-                            </a>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
-
         </div>
         <div class="overlap-card2 hidden" style="background: #eeeeee;text-align:center">
             <div style="display:flex;flex-direction:column;jutify-content:center;align-self:center;color:#23374d">
@@ -250,9 +182,11 @@
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 </div>
+<script src="/js/plugin.js"></script>
 <script>
     jQuery(document).ready(function ($) {
         $('.menu-open').change(function () {
@@ -391,9 +325,4 @@
 
 
     });
-
-
-
-
-
 </script>
