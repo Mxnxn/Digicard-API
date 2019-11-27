@@ -12,11 +12,11 @@ It handles all request/response including website ( main page ).
 ### contact.js
 >It handles contact routes.
 
-## Server.js
+# Server.js
 It handles middleware and configuration
 
-## .env file
+# .env file
 It handles key, links, DBurl and etc.
 
-## Contact
+# Contact
 Website : [https://www.thedigicard.in/](https://www.thedigicard.in)
